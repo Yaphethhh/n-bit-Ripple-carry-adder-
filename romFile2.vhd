@@ -1,48 +1,19 @@
-----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
--- 
--- Create Date: 10/14/2023 06:29:12 PM
--- Design Name: 
--- Module Name: romFile - Behavioral
--- Project Name: 
--- Target Devices: 
--- Tool Versions: 
--- Description: 
--- 
--- Dependencies: 
--- 
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
--- 
-----------------------------------------------------------------------------------
-
-
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
-
--- Uncomment the following library declaration if instantiating
--- any Xilinx leaf cells in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
-
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity romFile2 is
+  generic(n: integer := 16);
   port (
     address : in std_logic_vector(3 downto 0);
-    data : out std_logic_vector(15 downto 0); -- Changed to 64 bits
+    data : out std_logic_vector(n-1 downto 0); -- Changed to 64 bits
     en : in std_logic;
     clk : in std_logic
   );
 end entity romFile2;
 
 architecture behavioral of romFile2 is
-  type mem is array (0 to 15) of std_logic_vector(15 downto 0); -- Changed to 64 bits
+  type mem is array (0 to 15) of std_logic_vector(n-1 downto 0); -- Changed to 64 bits
   constant my_rom : mem := (
     x"0041",  -- 16-bit hexadecimal value
     x"0001",
